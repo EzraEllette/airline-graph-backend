@@ -1,6 +1,7 @@
 const graph = require("./graph");
 const morgan = require("morgan");
 const express = require("express");
+const helpers = require("./utilities/helpers");
 const app = express();
 
 app.use(express.json());
@@ -42,14 +43,6 @@ app.get('/airlines/:airlineId', (request, response) => {
 app.get('/airports/:code', (request, response) => {
   const code = request.params.code;
 
-  const humanizer = (f) => {
-    return {
-      airline: f.airline.name,
-      src: f.src.name,
-      dest: f.dest.name
-    }
-  };
-
   const airport = graph.Airport.getByCode(code);
 
   if (airport === undefined) {
@@ -57,7 +50,7 @@ app.get('/airports/:code', (request, response) => {
     return json.sendStatus(404);
   }
 
-  const flights = airport.outbound.map(humanizer).concat(airport.inbound.map(humanizer));
+  const flights = airport.outbound.map(helpers.humanizeFlight).concat(airport.inbound.map(helpers/humanizeFlight));
 
   const data = {
     code: airport.code,
@@ -81,13 +74,7 @@ app.get('/source/:code', (request, response) => {
     name: airport.name,
     lat: airport.lat,
     long: airport.long,
-    flights: airport.outbound.map(f => {
-      return {
-        airline: f.airline.name,
-        src: f.src.name,
-        dest: f.dest.name
-      };
-    }),
+    flights: airport.outbound.map(helpers.humanizeFlight),
   };
 
   response.json(data);
@@ -104,13 +91,7 @@ app.get('/destination/:code', (request, response) => {
     name: airport.name,
     lat: airport.lat,
     long: airport.long,
-    flights: airport.inbound.map(f => {
-      return {
-        airline: f.airline.name,
-        src: f.src.name,
-        dest: f.dest.name
-      };
-    }),
+    flights: airport.inbound.map(helpers.humanizeFlight),
   };
 
   response.json(data);

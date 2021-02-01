@@ -1,0 +1,24 @@
+{
+  "name": "vanilla",
+  "version": "1.0.0",
+  "description": "JavaScript example starter project",
+  "main": "index.html",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node_modules/.bin/nodemon src/index.js --watch src",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.2.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.7",
+    "parcel-bundler": "^1.6.1"
+  },
+  "keywords": [
+    "javascript",
+    "starter"
+  ]
+}
