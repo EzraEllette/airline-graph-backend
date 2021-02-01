@@ -1,3 +1,8 @@
-const Graph = require("./graph");
+const app = require("./app");
+const http = require("http");
 
-console.log(Graph.Airport.all);
+server = http.createServer(app);
+
+server.listen(3001, () => {
+  console.log("Listening on port 3001");
+});

@@ -23,6 +23,10 @@ const { airports, airlines, routes } = require("./data");
   addOutbound(flight) {
     this.outbound.push(flight);
   }
+
+  static getByCode(code) {
+    return Airport.all[code];
+  }
 }
 
 /**
@@ -71,6 +75,10 @@ class Airline {
 
   addFlight(flight) {
     this.flights.push(flight);
+  }
+
+  static getById(id) {
+    return Airline.all[id];
   }
 }
 
