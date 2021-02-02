@@ -1,0 +1,11 @@
+GET http://localhost:3001/from/AUS/to/JFK
+
+
+###
+GET http://localhost:3001/filter
+Content-Type: application/json
+
+{
+  "source": "JFK",
+  "destination": "ORY"
+}
